@@ -1,0 +1,45 @@
+unit Application_08;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TAssignment1X8_GPA_Student = class(TForm)
+    btnGrade: TButton;
+    memResult: TMemo;
+    lblTitle: TLabel;
+    procedure btnGradeClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Assignment1X8_GPA_Student: TAssignment1X8_GPA_Student;
+
+implementation
+
+{$R *.dfm}
+
+procedure TAssignment1X8_GPA_Student.btnGradeClick(Sender: TObject);
+var
+  //  Array [] 1x10
+  Scores: array[1..10] of Integer;
+  i: Integer;
+  Grade: string;
+  OutputLine: string;
+begin
+  memResult.Lines.Clear;
+  Randomize;
+  for i := 1 to 10 do
+  begin
+    Scores[i] := Random(101);
+  end;
+
+end;
+
+end.

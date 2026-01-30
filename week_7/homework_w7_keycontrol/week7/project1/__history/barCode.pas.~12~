@@ -1,0 +1,67 @@
+unit barCode;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, VFrames, Vcl.StdCtrls, JPEG, VCL.Graphics; // เพิ่ม VCL.Graphics ตรงนี้
+
+type
+  TFrMain = class(TForm)
+    Edit1: TEdit;
+    Label1: TLabel;
+    PaintBox1: TPaintBox;
+    Image1: TImage;
+    Image2: TImage;
+    Button1: TButton;
+    procedure Edit1Change(Sender: TObject);
+  private
+    { Private declarations }
+    fVideoImage: TVideoImage;
+    fActivated : boolean;
+
+  public
+    { Public declarations }
+  end;
+
+var
+  FrMain: TFrMain;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrMain.Edit1Change(Sender: TObject);
+var
+  FileName: string;
+begin
+  // เมื่อแสกนบาร์โค้ดแรกสำเร็จ (สีแดง)
+  if Edit1.Text = '8850999002668' then
+  begin
+    FrMain.Color := clRed;
+
+    // ตั้งชื่อไฟล์ตามรหัสบาร์โค้ดและบันทึกภาพ
+    FileName := 'D:\' + Edit1.Text + '.jpg';
+    fVideoImage.Bitmap.SaveToFile(FileName); // บันทึกจากกล้องโดยตรง
+
+    // แสดงภาพที่พึ่งถ่ายใน Image2 เพื่อยืนยัน
+    Image2.Picture.LoadFromFile(FileName);
+
+    Edit1.Text := ''; // ล้างช่องรับค่า
+  end;
+
+  // เมื่อแสกนบาร์โค้ดที่สองสำเร็จ (สีเขียว)
+  if Edit1.Text = '8851959139714' then
+  begin
+    FrMain.Color := clGreen;
+
+    FileName := 'D:\' + Edit1.Text + '.jpg';
+    fVideoImage.Bitmap.SaveToFile(FileName);
+
+    Image2.Picture.LoadFromFile(FileName);
+
+    Edit1.Text := '';
+  end;
+end;
+
+end.

@@ -1,0 +1,152 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Edit1: TEdit;
+    Label1: TLabel;
+    Edit2: TEdit;
+    Button2: TButton;
+    Button3: TButton;
+    Memo1: TMemo;
+    Button4: TButton;
+    Button5: TButton;
+    Button6: TButton;
+    Button7: TButton;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Edit1KeyPress(Sender: TObject; var Key: Char);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+ s1, s2:String;
+begin
+ s1:=Edit1.Text;
+ s2:=Edit2.Text;
+ if s1 = 'ok' then
+  begin
+   Label1.Caption:=s1+' good';
+   Form1.Caption:=s1+' good';
+  end
+ else if (s1 = 'Edit1') or (s2 = 'Edit2') then
+ //else if (s1 = 'Edit1') and (s2 = 'Edit2') then
+  Label1.Caption:='oh '+ s1
+ else
+  Label1.Caption:='No data';
+
+
+
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+ a:Integer;
+begin
+ a:=StrToInt(Edit1.Text);
+  case a of
+  1:Label1.Caption:='ok 1';
+  2:Label1.Caption:='ok 2';
+  3:Label1.Caption:='ok 3';
+  else
+   Label1.Caption:='Error';
+ end;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var
+ i:Integer;
+begin
+ for i:=9 downto 0 do
+  begin
+   if i = 5 then
+    Continue;
+   if i = 2 then
+    Break;
+   Memo1.Lines.Add(IntToStr(i));
+  end;
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+var
+ i:Integer;
+begin
+i:=0;
+ repeat
+  Memo1.Lines.Add(IntToStr(i));
+  Inc(i);
+  if i = 5 then
+   Break;
+ until i>=9 ;
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+var
+ i:Integer;
+begin
+i:=0;
+ while i <=9 do
+  begin
+   Memo1.Lines.Add(IntToStr(i));
+   Inc(i);
+   if i = 5 then
+    Break;
+  end;
+end;
+
+procedure TForm1.Button6Click(Sender: TObject);
+var
+ s1:String;
+begin
+ s1:=Edit2.Text;
+ if s1 = 'out' then
+  Exit;
+ Memo1.Lines.Add(s1);
+
+
+end;
+
+procedure TForm1.Button7Click(Sender: TObject);
+var
+ i1:Integer;
+begin
+ try
+  i1:=StrToInt(Edit2.Text);
+  Memo1.Lines.Add(IntToStr(i1));
+ except
+  ShowMessage('Err1');
+  Abort;
+  ShowMessage('Err2');
+ end;
+
+end;
+
+procedure TForm1.Edit1KeyPress(Sender: TObject; var Key: Char);
+begin
+ if Key = '5' then
+  Key:=Char(0);
+end;
+
+end.

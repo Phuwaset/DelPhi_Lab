@@ -1,0 +1,159 @@
+unit app1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls ,mmSystem, Vcl.StdCtrls;
+
+type
+  TFrMain = class(TForm)
+    Sh1: TShape;
+    Bt2: TButton;
+    Timer1: TTimer;
+    Target1: TShape;
+    Target2: TShape;
+    procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    //procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    //procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Bt2Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+  private
+    { Private declarations }
+    StartTime: TDateTime;
+    Hit1, Hit2: Boolean;
+    procedure CheckCollision;
+    procedure RandomTargets;
+  public
+    { Public declarations }
+  end;
+
+var
+  FrMain: TFrMain;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrMain.FormCreate(Sender: TObject);
+begin
+  Randomize;
+  RandomTargets;
+  StartTime := Now;
+  Hit1 := False;
+  Hit2 := False;
+end;
+procedure TFrMain.RandomTargets;
+begin
+  Target1.Left := Random(Self.ClientWidth - Target1.Width);
+  Target1.Top := Random(Self.ClientHeight - Target1.Height);
+  Target2.Left := Random(Self.ClientWidth - Target2.Width);
+  Target2.Top := Random(Self.ClientHeight - Target2.Height);
+
+  Target1.Brush.Color := clWhite;
+  Target2.Brush.Color := clWhite;
+end;
+procedure TFrMain.Timer1Timer(Sender: TObject);
+var
+  myjoy: Tjoyinfo;
+  b1, b2, b3, b4: Boolean;
+begin
+  if joyGetPos(JOYSTICKID1, @myjoy) = JOYERR_NOERROR then
+  begin
+    // ใช้ปุ่มหรือแกน Analog ก็ได้ (ตัวอย่างนี้ใช้ปุ่มตามโค้ดเดิมของคุณ)
+    b1 := (myjoy.wbuttons and JOY_BUTTON1) > 0; // ขึ้น
+    b2 := (myjoy.wbuttons and JOY_BUTTON2) > 0; // ขวา
+    b3 := (myjoy.wbuttons and JOY_BUTTON3) > 0; // ลง
+    b4 := (myjoy.wbuttons and JOY_BUTTON4) > 0; // ซ้าย
+
+    if b1 then Sh1.Top := Sh1.Top - 10;
+    if b2 then Sh1.Left := Sh1.Left + 10;
+    if b3 then Sh1.Top := Sh1.Top + 10;
+    if b4 then Sh1.Left := Sh1.Left - 10;
+
+    CheckCollision; // ตรวจการชนทุกครั้งที่ขยับ
+  end;
+end;
+
+procedure TFrMain.CheckCollision;
+var
+  R1, R2, R3, Dummy: TRect;
+begin
+  R1 := Sh1.BoundsRect;
+  R2 := Target1.BoundsRect;
+  R3 := Target2.BoundsRect;
+
+  // ตรวจชนกล่องที่ 1
+  if IntersectRect(Dummy, R1, R2) and not Hit1 then
+  begin
+    Hit1 := True;
+    Target1.Brush.Color := clLime; // เปลี่ยนสีเมื่อชน
+  end;
+
+  // ตรวจชนกล่องที่ 2
+  if IntersectRect(Dummy, R1, R3) and not Hit2 then
+  begin
+    Hit2 := True;
+    Target2.Brush.Color := clLime;
+  end;
+
+  if Hit1 and Hit2 then
+  begin
+    Timer1.Enabled := False;
+    ShowMessage('You Winn! ' + sLineBreak +
+                'Time use : ' + FormatDateTime('nn:ss', Now - StartTime) + 'min');
+    FormCreate(nil);
+    Timer1.Enabled := True;
+  end;
+end;
+
+procedure TFrMain.Bt2Click(Sender: TObject);
+begin
+  Timer1.Enabled := not Timer1.Enabled;
+end;
+
+procedure TFrMain.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+    if Key = VK_F1 then
+    FrMain.Color := clRed;
+
+    if (Key = VK_F3) and (ssCtrl in Shift) then
+    FrMain.Color := clYellow;
+
+end;
+
+//procedure TFrMain.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+//begin
+//   if Key = VK_F2 then
+//   FrMain.Color := clGreen;
+//end;
+//
+//
+//procedure TFrMain.FormKeyPress(Sender: TObject; var Key: Char);
+//begin
+//  if Key = 'a' then
+//    Sh1.Left := Sh1.Left - 10
+//  else if Key = 'd' then
+//    Sh1.Left := Sh1.Left + 10
+//  else if Key = 'w' then
+//    Sh1.Top := Sh1.Top - 10
+//  else if Key = 's' then
+//    Sh1.Top := Sh1.Top + 10;
+//end;
+//
+
+
+procedure TFrMain.FormMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  //(String Concatenation) show the position x,y on form discription;
+  FrMain.Caption := Format('X: %d  Y: %d', [X, Y]);
+end;
+
+
+
+
+end.

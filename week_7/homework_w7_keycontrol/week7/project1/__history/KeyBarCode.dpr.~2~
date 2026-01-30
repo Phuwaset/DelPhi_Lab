@@ -1,0 +1,14 @@
+program KeyBarCode;
+
+uses
+  Vcl.Forms,
+  barCode in 'barCode.pas' {FrMain};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFrMain, FrMain);
+  Application.Run;
+end.

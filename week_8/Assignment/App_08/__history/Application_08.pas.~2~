@@ -1,0 +1,24 @@
+unit Application_08;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+
+type
+  TAssignment1X8_GPA_Student = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Assignment1X8_GPA_Student: TAssignment1X8_GPA_Student;
+
+implementation
+
+{$R *.dfm}
+
+end.

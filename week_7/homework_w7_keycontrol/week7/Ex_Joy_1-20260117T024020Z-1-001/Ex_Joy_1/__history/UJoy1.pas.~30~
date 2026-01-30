@@ -1,0 +1,183 @@
+unit UJoy1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, mmSystem, Vcl.StdCtrls, Vcl.ComCtrls,
+  Vcl.ExtCtrls;
+
+type
+  TMMJoyStick  = packed record
+    Msg:     Cardinal;  // The message ID
+    Buttons: Longint;   // The wParam
+    XPos:    word;      // The lParam
+    YPos:    word;
+    Result:  Longint;
+end;
+
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    TrackBar1: TTrackBar;
+    RadioButton1: TRadioButton;
+    TrackBar2: TTrackBar;
+    RadioButton2: TRadioButton;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    CheckBox4: TCheckBox;
+    Edit3: TEdit;
+    CheckBox5: TCheckBox;
+    CheckBox6: TCheckBox;
+    Button2: TButton;
+    Button3: TButton;
+    Edit4: TEdit;
+    CheckBox7: TCheckBox;
+    CheckBox8: TCheckBox;
+    CheckBox9: TCheckBox;
+    Memo1: TMemo;
+    Button4: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    Timer1: TTimer;
+    Button5: TButton;
+    Button6: TButton;
+    Shape1: TShape;
+    procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+  private
+   procedure MMJOY1BUTTONDOWN(var LocMessage: TMMJoyStick); message MM_JOY1BUTTONDOWN;
+   procedure MMJOY1BUTTONUP(var LocMessage: TMMJoyStick); message MM_JOY1BUTTONUP;
+   procedure MMJOY1MOVE(var LocMessage: TMMJoyStick); message MM_JOY1MOVE;   // ButtonDown and Move are not shown, they just call ButtonUp
+   procedure ProcessJoy(var LocMessage: TMMJoyStick);
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+//http://sheepdogguides.com/dt4i.htm
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  myjoy:Tjoyinfo;
+  b1, b2, b3, b4:Boolean;
+begin
+  joygetpos(joystickid1,@myjoy);
+  Label1.Caption:=IntToStr(myjoy.wypos);
+  Label2.Caption:=IntToStr(myjoy.wxpos);
+  TrackBar1.Position:=myjoy.wypos;
+  TrackBar2.Position:=myjoy.wxpos;
+
+  b1:=(myjoy.wbuttons and joy_button1)>0;
+  b2:=(myjoy.wbuttons and joy_button2)>0;
+  b3:=(myjoy.wbuttons and joy_button3)>0;
+  b4:=(myjoy.wbuttons and joy_button4)>0;
+
+  if b1 then
+   Shape1.Top:=Shape1.Top - 10
+  else if b2 then
+   Shape1.Top:=Shape1.Top + 10
+  else if b3 then
+   Shape1.Left:=Shape1.Left - 10
+  else if b4 then
+   Shape1.Left:=Shape1.Left - 10
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  myJoyCaps:TJoyCaps;
+begin
+ joyGetDevCaps(joystickid1,@myJoyCaps, sizeof(myJoyCaps)); // for test
+ joySetCapture(self.Handle, joystickid1, 100, true);
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+ joyReleaseCapture(joystickid1);
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+begin
+ Timer1.Enabled:=True;
+end;
+
+procedure TForm1.Button6Click(Sender: TObject);
+begin
+ Timer1.Enabled:=False;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ //joyReleaseCapture(joystickid1);
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+//var
+  //myJoyCaps: TJoyCaps;
+begin
+ //joyGetDevCaps(joystickid1,@myJoyCaps, sizeof(myJoyCaps)); // for test
+ //joySetCapture(self.Handle, joystickid1, 100, true);
+end;
+
+procedure TForm1.MMJOY1BUTTONDOWN(var LocMessage: TMMJoyStick);
+begin
+  ProcessJoy(LocMessage);
+end;
+
+procedure TForm1.MMJOY1BUTTONUP(var LocMessage: TMMJoyStick);
+begin
+  ProcessJoy(LocMessage);
+end;
+
+procedure TForm1.MMJOY1MOVE(var LocMessage: TMMJoyStick);
+begin
+  ProcessJoy(LocMessage);
+end;
+
+procedure TForm1.ProcessJoy(var LocMessage: TMMJoyStick);
+begin
+  Edit1.Text := IntToStr(LocMessage.ypos);  // so you can see
+  Edit2.Text := IntToStr(LocMessage.xpos);  //   what is happening
+  Edit3.Text := IntToStr(LocMessage.Buttons);
+  Edit4.Text := IntToStr(LocMessage.Result);
+  Memo1.Lines.Add(IntToStr(LocMessage.Buttons));
+  CheckBox1.checked := (LocMessage.Buttons and joy_button1)>0;
+  CheckBox2.checked := (LocMessage.Buttons and joy_button2)>0;
+  CheckBox3.checked := (LocMessage.Buttons and joy_button3)>0;
+  CheckBox4.checked := (LocMessage.Buttons and joy_button4)>0;
+  CheckBox5.checked := (LocMessage.Buttons and joy_button5)>0;
+  CheckBox6.checked := (LocMessage.Buttons and joy_button6)>0;
+  CheckBox7.checked := (LocMessage.Buttons and joy_button7)>0;
+  CheckBox8.checked := (LocMessage.Buttons and joy_button8)>0;
+  CheckBox9.checked := (LocMessage.Buttons and joy_button9)>0;
+
+  if (LocMessage.Buttons and joy_button1)>0 then
+   Button4.Left:=Button4.Left-10;
+  if CheckBox2.Checked then
+   Button4.Left:=Button4.Left+10;
+  if CheckBox4.Checked then
+   Button4.Top:=Button4.Top-10;
+  if CheckBox3.Checked then
+   Button4.Top:=Button4.Top+10;
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  Button1.Click;
+end;
+end.

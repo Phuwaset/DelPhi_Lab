@@ -1,0 +1,51 @@
+unit barCode;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls,
+  VFrames, Vcl.StdCtrls;
+
+type
+  TFrMain = class(TForm)
+    Edit1: TEdit;
+    Label1: TLabel;
+    PaintBox1: TPaintBox;
+    Image1: TImage;
+    Image2: TImage;
+    Button1: TButton;
+    procedure Edit1Change(Sender: TObject);
+  private
+    { Private declarations }
+    fVideoImage: TVideoImage;
+    fActivated : boolean;
+
+  public
+    { Public declarations }
+  end;
+
+var
+  FrMain: TFrMain;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFrMain.Edit1Change(Sender: TObject);
+begin
+
+  if Edit1.Text = '8850999002668' then
+  begin
+    FrMain.Color := clRed;
+    Edit1.Text := '';
+  end;
+
+  if Edit1.Text = '8851959139714' then
+  begin
+    FrMain.Color := clGreen;
+    Edit1.Text := '';
+  end;
+end;
+
+end.
