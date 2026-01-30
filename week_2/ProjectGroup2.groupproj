@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{66D8B4E0-4777-495A-AEC2-8081A4E38DBD}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Zip\drive-download-20260130T222219Z-3-001\week_2 _No3_Homework_6703016411302\Homework_6703016411302\PFirstApp.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Zip\drive-download-20260130T222219Z-3-001\week2_No4\ข้อ4\Project1.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="PFirstApp">
+        <MSBuild Projects="Zip\drive-download-20260130T222219Z-3-001\week_2 _No3_Homework_6703016411302\Homework_6703016411302\PFirstApp.dproj"/>
+    </Target>
+    <Target Name="PFirstApp:Clean">
+        <MSBuild Projects="Zip\drive-download-20260130T222219Z-3-001\week_2 _No3_Homework_6703016411302\Homework_6703016411302\PFirstApp.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PFirstApp:Make">
+        <MSBuild Projects="Zip\drive-download-20260130T222219Z-3-001\week_2 _No3_Homework_6703016411302\Homework_6703016411302\PFirstApp.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Project1">
+        <MSBuild Projects="Zip\drive-download-20260130T222219Z-3-001\week2_No4\ข้อ4\Project1.dproj"/>
+    </Target>
+    <Target Name="Project1:Clean">
+        <MSBuild Projects="Zip\drive-download-20260130T222219Z-3-001\week2_No4\ข้อ4\Project1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Project1:Make">
+        <MSBuild Projects="Zip\drive-download-20260130T222219Z-3-001\week2_No4\ข้อ4\Project1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="PFirstApp;Project1"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="PFirstApp:Clean;Project1:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="PFirstApp:Make;Project1:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
