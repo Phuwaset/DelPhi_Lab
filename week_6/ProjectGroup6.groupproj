@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{44F00D11-0D24-4D16-B189-514DDB63BFAC}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Zip\Exercise_W6_ByPhuwaset\Ex_Chart_2\Assign_PTeChart1.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Zip\homework\Ex_Chart_2\PTeChart1.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\เอกสาร\Mid_2566\Mid-2566-20260130T174638Z-3-001\Mid-2566\PTeChart2.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Assign_PTeChart1">
+        <MSBuild Projects="Zip\Exercise_W6_ByPhuwaset\Ex_Chart_2\Assign_PTeChart1.dproj"/>
+    </Target>
+    <Target Name="Assign_PTeChart1:Clean">
+        <MSBuild Projects="Zip\Exercise_W6_ByPhuwaset\Ex_Chart_2\Assign_PTeChart1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Assign_PTeChart1:Make">
+        <MSBuild Projects="Zip\Exercise_W6_ByPhuwaset\Ex_Chart_2\Assign_PTeChart1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PTeChart1">
+        <MSBuild Projects="Zip\homework\Ex_Chart_2\PTeChart1.dproj"/>
+    </Target>
+    <Target Name="PTeChart1:Clean">
+        <MSBuild Projects="Zip\homework\Ex_Chart_2\PTeChart1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PTeChart1:Make">
+        <MSBuild Projects="Zip\homework\Ex_Chart_2\PTeChart1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PTeChart2">
+        <MSBuild Projects="..\เอกสาร\Mid_2566\Mid-2566-20260130T174638Z-3-001\Mid-2566\PTeChart2.dproj"/>
+    </Target>
+    <Target Name="PTeChart2:Clean">
+        <MSBuild Projects="..\เอกสาร\Mid_2566\Mid-2566-20260130T174638Z-3-001\Mid-2566\PTeChart2.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PTeChart2:Make">
+        <MSBuild Projects="..\เอกสาร\Mid_2566\Mid-2566-20260130T174638Z-3-001\Mid-2566\PTeChart2.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Assign_PTeChart1;PTeChart1;PTeChart2"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Assign_PTeChart1:Clean;PTeChart1:Clean;PTeChart2:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Assign_PTeChart1:Make;PTeChart1:Make;PTeChart2:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

@@ -1,0 +1,72 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{C8199557-F0AA-4C1C-B391-6D8878BD2D9E}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Zip\6703016411302_All_Execise1+2\week3_1\Project_VatCal.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Zip\drive-download-20260130T223522Z-3-001\ข้อ2\ข้อ2\T2_Project1.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Zip\drive-download-20260130T223522Z-3-001\ข้อ1\ข้อ1\T1_Project1.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Zip\6703016411302_HW1\Home Work\HW_Project1.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Project_VatCal">
+        <MSBuild Projects="Zip\6703016411302_All_Execise1+2\week3_1\Project_VatCal.dproj"/>
+    </Target>
+    <Target Name="Project_VatCal:Clean">
+        <MSBuild Projects="Zip\6703016411302_All_Execise1+2\week3_1\Project_VatCal.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Project_VatCal:Make">
+        <MSBuild Projects="Zip\6703016411302_All_Execise1+2\week3_1\Project_VatCal.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="T2_Project1">
+        <MSBuild Projects="Zip\drive-download-20260130T223522Z-3-001\ข้อ2\ข้อ2\T2_Project1.dproj"/>
+    </Target>
+    <Target Name="T2_Project1:Clean">
+        <MSBuild Projects="Zip\drive-download-20260130T223522Z-3-001\ข้อ2\ข้อ2\T2_Project1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="T2_Project1:Make">
+        <MSBuild Projects="Zip\drive-download-20260130T223522Z-3-001\ข้อ2\ข้อ2\T2_Project1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="T1_Project1">
+        <MSBuild Projects="Zip\drive-download-20260130T223522Z-3-001\ข้อ1\ข้อ1\T1_Project1.dproj"/>
+    </Target>
+    <Target Name="T1_Project1:Clean">
+        <MSBuild Projects="Zip\drive-download-20260130T223522Z-3-001\ข้อ1\ข้อ1\T1_Project1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="T1_Project1:Make">
+        <MSBuild Projects="Zip\drive-download-20260130T223522Z-3-001\ข้อ1\ข้อ1\T1_Project1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="HW_Project1">
+        <MSBuild Projects="Zip\6703016411302_HW1\Home Work\HW_Project1.dproj"/>
+    </Target>
+    <Target Name="HW_Project1:Clean">
+        <MSBuild Projects="Zip\6703016411302_HW1\Home Work\HW_Project1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="HW_Project1:Make">
+        <MSBuild Projects="Zip\6703016411302_HW1\Home Work\HW_Project1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Project_VatCal;T2_Project1;T1_Project1;HW_Project1"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Project_VatCal:Clean;T2_Project1:Clean;T1_Project1:Clean;HW_Project1:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Project_VatCal:Make;T2_Project1:Make;T1_Project1:Make;HW_Project1:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

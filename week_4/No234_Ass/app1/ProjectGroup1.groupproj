@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{609AF3A3-F4ED-4594-BD16-9C97ED10D621}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="As4_Project1.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\homework_w4\Ans_Ass_1\PThreadObj1.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="As4_Project1">
+        <MSBuild Projects="As4_Project1.dproj"/>
+    </Target>
+    <Target Name="As4_Project1:Clean">
+        <MSBuild Projects="As4_Project1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="As4_Project1:Make">
+        <MSBuild Projects="As4_Project1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PThreadObj1">
+        <MSBuild Projects="..\..\homework_w4\Ans_Ass_1\PThreadObj1.dproj"/>
+    </Target>
+    <Target Name="PThreadObj1:Clean">
+        <MSBuild Projects="..\..\homework_w4\Ans_Ass_1\PThreadObj1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PThreadObj1:Make">
+        <MSBuild Projects="..\..\homework_w4\Ans_Ass_1\PThreadObj1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="As4_Project1;PThreadObj1"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="As4_Project1:Clean;PThreadObj1:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="As4_Project1:Make;PThreadObj1:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
