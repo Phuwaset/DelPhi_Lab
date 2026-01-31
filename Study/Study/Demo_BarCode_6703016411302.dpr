@@ -1,8 +1,8 @@
-program Demo01;
+program Demo_BarCode_6703016411302;
 
 uses
   Forms,
-  Demo01_MainForm in 'Demo01_MainForm.pas' {Form1},
+  Demo01_MainForm_6703016411302 in 'Demo01_MainForm_6703016411302.pas' {Form1},
   Direct3D9 in '..\Common\DirectX\Direct3D9.pas',
   DirectDraw in '..\Common\DirectX\DirectDraw.pas',
   DirectShow9 in '..\Common\DirectX\DirectShow9.pas',
